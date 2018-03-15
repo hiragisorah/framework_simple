@@ -10,8 +10,7 @@
 #include <framework\entity.h>
 
 // コンポーネント
-
-// システム
+#include <component\renderer.h>
 
 // API
 #include <D3DX11.h>
@@ -30,7 +29,7 @@
 
 namespace System
 {
-	class Direct3D11 : public FrameWork::System
+	class Direct3D11 : public ISystem
 	{
 	public:
 		ID3D11Device * device_;
@@ -40,12 +39,11 @@ namespace System
 		ID3D11RenderTargetView * back_buffer_rtv_;
 		ID3D11DepthStencilView * back_buffer_dsv_;
 		D3DXCOLOR bg_color_ = { 0.5f, 0.4f, 1.f, 1.f };
+		std::vector<Component::IRenderer*> draw_list_;
 
 	public:
 		Direct3D11(void)
 		{
-			D3D11_INPUT_ELEMENT_DESC layout = {};
-			layout = layout;
 			// windowシステムの取得
 			auto window = Game::GetSystem<Window>();
 
@@ -124,38 +122,6 @@ namespace System
 				}
 			}
 
-			{// ラスタライザーの作成
-				D3D11_RASTERIZER_DESC rdc;
-				memset(&rdc, 0, sizeof(rdc));
-				rdc.CullMode = D3D11_CULL_BACK;
-				rdc.FillMode = D3D11_FILL_SOLID;
-				ID3D11RasterizerState * rs = nullptr;
-				this->device_->CreateRasterizerState(&rdc, &rs);
-
-				{// ラスタライザーを設定
-					this->context_->RSSetState(rs);
-				}
-			}
-
-			{// アルファブレンド用ブレンドステート作成
-				ID3D11BlendState * blend_state;
-
-				D3D11_BLEND_DESC bd;
-				memset(&bd, 0, sizeof(D3D11_BLEND_DESC));
-				bd.AlphaToCoverageEnable = false;
-				bd.IndependentBlendEnable = true;
-				bd.RenderTarget[0].BlendEnable = true;
-				bd.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
-				bd.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-				bd.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-				bd.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-				bd.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
-				bd.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-				bd.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-
-				this->device_->CreateBlendState(&bd, &blend_state);
-				this->context_->OMSetBlendState(blend_state, nullptr, 0xffffff);
-			}
 		}
 		~Direct3D11(void)
 		{
@@ -175,7 +141,10 @@ namespace System
 			}
 
 			{// 描画
+				for (auto draw : this->draw_list_)
+					draw->Rendering();
 
+				this->draw_list_.clear();
 			}
 
 			{// 画面更新

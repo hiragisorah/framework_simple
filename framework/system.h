@@ -2,22 +2,19 @@
 
 class Game;
 
-namespace FrameWork
+class ISystem
 {
-	class System
-	{
-		friend Game;
+	friend Game;
 
-	public:
-		System(void) {}
-		virtual ~System(void) {}
+public:
+	ISystem(void) {}
+	virtual ~ISystem(void) {}
 
-	private:
-		// ポーズしていない時
-		virtual void Update(void) {}
-		// ポーズ時
-		virtual void Pause(void) {}
-		// 常時
-		virtual void Always(void) {}
-	};
-}
+private:
+	// ポーズしていない時
+	virtual void Update(void) {}
+	// ポーズ時
+	virtual void Pause(void) {}
+	// 常時
+	virtual void Always(void) {}
+};

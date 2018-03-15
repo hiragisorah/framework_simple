@@ -10,7 +10,7 @@
 class Game
 {
 private:
-	static std::unordered_map<std::string, FrameWork::System*> systems_;
+	static std::unordered_map<std::string, ISystem*> systems_;
 	static bool pause_;
 	static bool running_;
 
@@ -115,6 +115,6 @@ public:
 	}
 };
 
-std::unordered_map<std::string, FrameWork::System*> Game::systems_ = {};
+std::unordered_map<std::string, ISystem*> Game::systems_ = {};
 bool Game::pause_ = false;
 bool Game::running_ = true;

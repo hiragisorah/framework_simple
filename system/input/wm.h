@@ -13,7 +13,7 @@ namespace System
 	{
 		const int KEY_MAX = 256;
 
-		class WM : public FrameWork::System
+		class WM : public ISystem
 		{
 			friend Window;
 

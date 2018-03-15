@@ -16,7 +16,7 @@
 
 namespace System
 {
-	class Window : public FrameWork::System
+	class Window : public ISystem
 	{
 	private:
 		HINSTANCE hinstance_;

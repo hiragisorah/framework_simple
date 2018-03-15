@@ -113,14 +113,45 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="component\renderer.h" />
+    <ClInclude Include="component\collider.h" />
+    <ClInclude Include="component\renderer\draw.h" />
+    <ClInclude Include="component\renderer\draw_indexed.h" />
+    <ClInclude Include="component\renderer\draw_indexed_instanced.h" />
+    <ClInclude Include="component\renderer\draw_instanced.h" />
+    <ClInclude Include="component\transform.h" />
+    <ClInclude Include="data\blend.h" />
+    <ClInclude Include="data\blend\alpha.h" />
+    <ClInclude Include="data\index.h" />
+    <ClInclude Include="data\rasterizer.h" />
+    <ClInclude Include="data\rasterizer\cull_front_fill_solid.h" />
+    <ClInclude Include="data\rasterizer\cull_none_fill_solid.h" />
+    <ClInclude Include="data\sampler.h" />
+    <ClInclude Include="data\shader.h" />
+    <ClInclude Include="data\shader\default2d.h" />
+    <ClInclude Include="data\shader\default3d.h" />
+    <ClInclude Include="data\shader\shadow.h" />
+    <ClInclude Include="data\vertex.h" />
+    <ClInclude Include="data\vertex\line.h" />
+    <ClInclude Include="data\vertex\point.h" />
+    <ClInclude Include="data\vertex\quad.h" />
+    <ClInclude Include="data\vertex\quad_normal.h" />
+    <ClInclude Include="data\vertex\triangle.h" />
     <ClInclude Include="framework\component.h" />
     <ClInclude Include="framework\entity.h" />
     <ClInclude Include="framework\game.h" />
     <ClInclude Include="framework\system.h" />
+    <ClInclude Include="game_object\logo.h" />
+    <ClInclude Include="scene\title.h" />
+    <ClInclude Include="system\camera.h" />
+    <ClInclude Include="system\collision_manager.h" />
     <ClInclude Include="system\direct3d11.h" />
     <ClInclude Include="system\input\wm.h" />
+    <ClInclude Include="system\database.h" />
+    <ClInclude Include="system\scene_manager.h" />
     <ClInclude Include="system\window.h" />
     <ClInclude Include="utils\memory.h" />
+    <ClInclude Include="utils\process.h" />
     <ClInclude Include="utils\user_literal.h" />
   </ItemGroup>
   <ItemGroup>
